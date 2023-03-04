@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
@@ -32,6 +33,7 @@ public class Main2Activity extends AppCompatActivity implements UserAdapter.Item
     EditText updateName;
     Button update;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,6 +92,7 @@ public class Main2Activity extends AppCompatActivity implements UserAdapter.Item
 
     public void deleteUser(final User user) {
         db.collection("Users").document(user.getId()).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+            @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onSuccess(Void unused) {
                 items.remove(user);
@@ -105,6 +108,7 @@ public class Main2Activity extends AppCompatActivity implements UserAdapter.Item
 
     @Override
     public void onItemClick(int position, String id) {
+        deleteUser(items.get(position));
     }
 
     @Override
